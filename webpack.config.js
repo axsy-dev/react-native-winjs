@@ -120,24 +120,28 @@ if (NODE_ENV === 'production') {
       }),
       new webpack.optimize.CommonsChunkPlugin('react-web', 'react-web.js'),
       new HtmlPlugin({
+        template: 'src/winjs_template.html',
         filename: 'game2048.html',
         hash: true,
         title: 'Game2048',
         chunks: ['react-web', 'game2048']
       }),
       new HtmlPlugin({
+        template: 'src/winjs_template.html',
         filename: 'movies.html',
         hash: true,
         title: 'Movies',
         chunks: ['react-web', 'movies']
       }),
       new HtmlPlugin({
+        template: 'src/winjs_template.html',
         filename: 'tictactoe.html',
         hash: true,
         title: 'TicTacToe',
         chunks: [ 'react-web', 'tictactoe']
       }),
       new HtmlPlugin({
+        template: 'src/winjs_template.html',
         filename: 'uiexplorer.html',
         hash: true,
         title: 'UIExplorer',

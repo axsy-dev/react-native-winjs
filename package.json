@@ -55,6 +55,7 @@
     "immutable": "3.7.5",
     "object-assign": "3.0.0",
     "promise": "7.0.4",
+    "react-dom": "^0.14.6",
     "react-timer-mixin": "0.13.2",
     "rebound": "0.0.13",
     "tinycolor2": "1.1.2",

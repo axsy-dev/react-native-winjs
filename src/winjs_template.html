@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title>TicTacToe</title>
+    <title>{%=o.htmlWebpackPlugin.options.title || 'Webpack App'%}</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/css/ui-dark.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/js/base.js"></script>
@@ -23,10 +23,8 @@
 
   </head>
   <body class="win-type-body">
-      
-      <script src="react-web.js?deb7c21b0e7b97fc7753"></script>
-      
-      <script src="tictactoe.js?deb7c21b0e7b97fc7753"></script>
-      
+      {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+      <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+      {% } %}
   </body>
 </html>
