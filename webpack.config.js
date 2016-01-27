@@ -20,7 +20,7 @@ var config = {
 var mergeCommon = merge.bind(null, {
   resolve: {
     alias: {
-      'react-native': 'ReactWeb',
+      'react-native': 'ReactNativeWinJS',
       'ReactART': 'react-art'
     },
     extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
@@ -94,7 +94,7 @@ if (NODE_ENV === 'production') {
     devtool: 'source-map',
     entry: {
       // tweak this to include your externs unless you load them some other way
-      'react-web': ['react-native'],
+      'react-native-winjs': ['react-native'],
       game2048: './Examples/2048/Game2048',
       movies: './Examples/Movies/MoviesApp.web',
       tictactoe: './Examples/TicTacToe/TicTacToeApp',
@@ -113,39 +113,39 @@ if (NODE_ENV === 'production') {
         }
       }),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        },
-      }),
-      new webpack.optimize.CommonsChunkPlugin('react-web', 'react-web.js'),
+//       new webpack.optimize.UglifyJsPlugin({
+//         compress: {
+//           warnings: false
+//         },
+//       }),
+      new webpack.optimize.CommonsChunkPlugin('react-native-winjs', 'react-native-winjs.js'),
       new HtmlPlugin({
         template: 'src/winjs_template.html',
         filename: 'game2048.html',
         hash: true,
         title: 'Game2048',
-        chunks: ['react-web', 'game2048']
+        chunks: ['react-native-winjs', 'game2048']
       }),
       new HtmlPlugin({
         template: 'src/winjs_template.html',
         filename: 'movies.html',
         hash: true,
         title: 'Movies',
-        chunks: ['react-web', 'movies']
+        chunks: ['react-native-winjs', 'movies']
       }),
       new HtmlPlugin({
         template: 'src/winjs_template.html',
         filename: 'tictactoe.html',
         hash: true,
         title: 'TicTacToe',
-        chunks: [ 'react-web', 'tictactoe']
+        chunks: [ 'react-native-winjs', 'tictactoe']
       }),
       new HtmlPlugin({
         template: 'src/winjs_template.html',
         filename: 'uiexplorer.html',
         hash: true,
         title: 'UIExplorer',
-        chunks: ['react-web', 'uiexplorer']
+        chunks: ['react-native-winjs', 'uiexplorer']
       }),
     ],
     module: {

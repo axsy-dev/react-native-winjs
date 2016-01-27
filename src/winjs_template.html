@@ -4,22 +4,29 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <title>{%=o.htmlWebpackPlugin.options.title || 'Webpack App'%}</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/css/ui-dark.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/js/base.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/js/ui.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/css/ui-light.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/js/base.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/js/ui.js"></script>
 
-	<style>
-      #app {
-          height: 100%;
-      }
-      /*
-       *  For performance reasons, the .win-container styles should be
-       *  specified in CSS.
-      */
-      #app .win-container .win-item {
-          height: 100%;
-      }
-  </style>
+    {% if (o.htmlWebpackPlugin.files.favicon) { %}
+    <link rel="shortcut icon" href="{%=o.htmlWebpackPlugin.files.favicon%}">
+    {% } %}
+    {% for (var css in o.htmlWebpackPlugin.files.css) { %}
+    <link href="{%=o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet">
+    {% } %}
+
+    <style>
+        #app {
+            height: 100%;
+        }
+        /*
+         *  For performance reasons, the .win-container styles should be
+         *  specified in CSS.
+        */
+        #app .win-container .win-item {
+            height: 100%;
+        }
+    </style>
 
   </head>
   <body class="win-type-body">

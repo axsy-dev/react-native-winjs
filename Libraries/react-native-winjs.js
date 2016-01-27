@@ -1,8 +1,5 @@
 /**
- * Copyright (c) 2015-present, Alibaba Group Holding Limited.
- * All rights reserved.
- *
- * @providesModule ReactWeb
+ * @providesModule ReactNativeWinJS
  */
 'use strict';
 
@@ -12,7 +9,7 @@ import StyleSheet from 'ReactStyleSheet';
 // proxy origin react createElement
 StyleSheet.extendCreateElement(React);
 
-var ReactWeb = {
+var ReactNativeWinJS = {
   // Components
   get ActivityIndicatorIOS() { return require('ReactActivityIndicator'); },
   get DatePickerIOS() { return null; },
@@ -61,4 +58,4 @@ var ReactWeb = {
   ...React,
 };
 
-module.exports = ReactWeb;
+module.exports = ReactNativeWinJS;
