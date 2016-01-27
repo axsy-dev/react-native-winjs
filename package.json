@@ -1,18 +1,19 @@
 {
-  "name": "react-web",
-  "version": "0.1.6",
-  "description": "A framework for building web apps with React",
+  "name": "react-native-winjs",
+  "version": "0.0.1",
+  "description": "A framework for building WinJS apps with React",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git@github.com:taobaofed/react-web.git"
+    "url": "git@github.com:dorada/react-native-winjs.git"
   },
-  "main": "./lib/react-web.js",
+  "main": "./lib/react-native-winjs.js",
   "keywords": [
     "react-native",
     "react-web",
     "react",
-    "react-component"
+    "react-component",
+    "react-winjs"
   ],
   "scripts": {
     "test": "jest",
