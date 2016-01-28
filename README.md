@@ -2,6 +2,10 @@
 
 > A framework for building WinJS apps with a React Native compatible API.
 
+***************************************
+*           Under Construction        *
+***************************************
+
 ## Scripts
 
 * Linting - **npm run lint** - Must run it before commit.
