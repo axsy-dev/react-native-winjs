@@ -60,6 +60,7 @@
     "rebound": "0.0.13",
     "tinycolor2": "1.1.2",
     "webpack": "1.12.10",
-    "webpack-dev-server": "1.14.0"
+    "webpack-dev-server": "1.14.0",
+    "react-winjs": "2.4.0"
   }
 }
