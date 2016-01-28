@@ -41,7 +41,7 @@ var mergeCommon = merge.bind(null, {
   },
   plugins: [
     new HasteResolverPlugin({
-      platform: 'web',
+      platform: 'winjs',
       blacklist: ['pages', 'lib'],
     }),
   ]

@@ -26,7 +26,7 @@ var {
 } = React;
 
 function getPageXY(event){
-  if (Platform.OS == 'web') {
+  if (Platform.OS == 'winjs') {
     var touch = event.nativeEvent.changedTouches[0];
     return {
       pageX: touch.pageX,
@@ -337,7 +337,7 @@ var styles = StyleSheet.create({
 
 AppRegistry.registerComponent('Game2048', () => Game2048);
 
-if(Platform.OS == 'web'){
+if(Platform.OS == 'winjs'){
   var app = document.createElement('div');
   document.body.appendChild(app);
 

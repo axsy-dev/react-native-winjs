@@ -179,7 +179,7 @@ var styles = StyleSheet.create({
   },
   searchRow: {
     backgroundColor: '#eeeeee',
-    paddingTop: Platform.OS === 'web'? 10: 75,
+    paddingTop: Platform.OS === 'winjs'? 10: 75,
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 10,

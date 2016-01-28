@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new HasteResolverPlugin({
-      platform: 'web',
+      platform: 'winjs',
       nodeModules: ['react-native-winjs']
     }),
     new webpack.DefinePlugin({

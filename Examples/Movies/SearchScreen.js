@@ -27,7 +27,7 @@ var {
 } = React;
 var TimerMixin = require('react-timer-mixin');
 
-var fetch = Platform.OS === 'web'? require('ReactJsonp'): require('ReactFetch');
+var fetch = Platform.OS === 'winjs'? require('ReactJsonp'): require('ReactFetch');
 
 var invariant = require('fbjs/lib/invariant');
 var dismissKeyboard = require('ReactDismissKeyboard');
@@ -255,7 +255,7 @@ var SearchScreen = React.createClass({
     }
     if (Platform.OS === 'ios') {
       return <ActivityIndicatorIOS style={styles.scrollSpinner} />;
-    } else if (Platform.OS === 'web'){
+    } else if (Platform.OS === 'winjs'){
       return (
         <View style={{alignItems: 'center'}}>
           <ActivityIndicatorIOS style={styles.scrollSpinner} />

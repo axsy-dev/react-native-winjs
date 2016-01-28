@@ -69,7 +69,7 @@ var styles = StyleSheet.create({
 
 AppRegistry.registerComponent('MoviesApp', () => MoviesApp);
 
-if(Platform.OS == 'web'){
+if(Platform.OS == 'winjs'){
   var app = document.createElement('div');
   document.body.appendChild(app);
 
