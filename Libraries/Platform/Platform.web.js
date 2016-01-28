@@ -8,7 +8,7 @@
 'use strict';
 
 var Platform = {
-  OS: 'web',
+  OS: 'winjs',
 };
 
 module.exports = Platform;
