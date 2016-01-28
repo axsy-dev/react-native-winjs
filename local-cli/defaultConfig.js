@@ -17,7 +17,7 @@ const WEBPACK_CONFIG = 'web/webpack.config.js';
  */
 var config = {
   getRoot() {
-    if (__dirname.match(/node_modules[\/\\]react-web[\/\\]local-cli$/)) {
+    if (__dirname.match(/node_modules[\/\\]react-native-winjs[\/\\]local-cli$/)) {
       // CLI is running from node_modules.
       // This is the default case for all projects created using 'react-web init'.
       return path.resolve(__dirname, '../../..');

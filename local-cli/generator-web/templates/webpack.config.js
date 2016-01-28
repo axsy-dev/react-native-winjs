@@ -26,7 +26,7 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     alias: {
-      'react-native': 'react-web',
+      'react-native': 'ReactNativeWinJS',
       'ReactNativeART': 'react-art',
     },
     extensions: ['', '.js', '.jsx'],
@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     new HasteResolverPlugin({
       platform: 'web',
-      nodeModules: ['react-web']
+      nodeModules: ['react-native-winjs']
     }),
     new webpack.DefinePlugin({
       'process.env': {

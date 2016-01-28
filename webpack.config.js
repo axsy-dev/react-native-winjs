@@ -54,14 +54,18 @@ if (NODE_ENV === 'development') {
     ip: IP,
     port: PORT,
     devtool: 'source-map',
-    entry: [
-      'webpack-dev-server/client?http://' + IP + ':' + PORT,
-      'webpack/hot/only-dev-server',
-      config.paths.demoIndex,
-    ],
+    entry:
+      {
+      'react-native-winjs' : [
+        'webpack-dev-server/client?http://' + IP + ':' + PORT,
+        'webpack/hot/only-dev-server'
+        ],
+        demo: config.paths.demoIndex
+      },
     output: {
       path: __dirname,
-      filename: 'bundle.js'
+      filename: '[name].js',
+      sourceMapFilename: '[file].map',
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -71,7 +75,12 @@ if (NODE_ENV === 'development') {
       }),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
-      new HtmlPlugin(),
+      new HtmlPlugin({
+        template: path.join(ROOT_PATH, 'src/winjs_template.html'),
+        filename: 'index.html',
+        title: 'demo',
+        chunks: ['react-native-winjs', 'demo']
+      }),
     ],
     module: {
       preLoaders: [{

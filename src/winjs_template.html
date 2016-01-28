@@ -34,4 +34,10 @@
       <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
       {% } %}
   </body>
+  <script>
+    WinJS.Application.onready = function () {
+      WinJS.UI.processAll();
+  };
+  WinJS.Application.start();
+  </script>
 </html>
