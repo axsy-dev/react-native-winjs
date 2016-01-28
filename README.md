@@ -1,10 +1,10 @@
+# WARNING: Under Construction
+           
 # React Native WinJS
 
 > A framework for building WinJS apps with a React Native compatible API.
 
-***************************************
-*           Under Construction        *
-***************************************
+
 
 ## Scripts
 
