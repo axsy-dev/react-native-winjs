@@ -23,16 +23,19 @@
          *  For performance reasons, the .win-container styles should be
          *  specified in CSS.
         */
-        #app .win-container .win-item {
+        win-container win-item {
             height: 100%;
+        }
+        .win-listview {
+            height: 100vh;
         }
     </style>
 
   </head>
   <body class="win-type-body">
-      {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-      <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
-      {% } %}
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+    <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+    {% } %}
   </body>
   <script>
     WinJS.Application.onready = function () {
