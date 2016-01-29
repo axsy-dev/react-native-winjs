@@ -56,7 +56,7 @@ if (NODE_ENV === 'development') {
     devtool: 'source-map',
     entry:
       {
-      'react-native-winjs' : [
+      'webpack' : [
         'webpack-dev-server/client?http://' + IP + ':' + PORT,
         'webpack/hot/only-dev-server'
         ],
@@ -92,6 +92,7 @@ if (NODE_ENV === 'development') {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel?stage=1'],
         include: [config.paths.demo, config.paths.src],
+        exclude: [/node_modules/]
       }, ]
     }
   });

@@ -15,6 +15,7 @@ let isProd = NODE_ENV === 'production';
 
 var config = {
   paths: {
+  	libs: path.join(ROOT_PATH, 'node_modules/react-native-winjs/lib'),
     src: path.join(ROOT_PATH, '.'),
     index: path.join(ROOT_PATH, 'index.ios'),
   },
@@ -26,37 +27,43 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     alias: {
-      'react-native': 'ReactNativeWinJS',
+      'react-native': 'react-native-winjs',
       'ReactNativeART': 'react-art',
     },
     extensions: ['', '.js', '.jsx'],
   },
   entry: isProd? [
     config.paths.index
-  ]: [
-    'webpack-dev-server/client?http://' + IP + ':' + PORT,
-    'webpack/hot/only-dev-server',
-    config.paths.index,
-  ],
+  	]: {
+      'app' : [
+        'webpack-dev-server/client?http://' + IP + ':' + PORT,
+//        'webpack/hot/only-dev-server',
+        config.paths.index
+        ]
+      },
   output: {
     path: path.join(__dirname, 'output'),
-    filename: 'bundle.js'
+    filename: '[name].js',
+    sourceMapFilename: '[file].map',
   },
   plugins: [
     new HasteResolverPlugin({
-      platform: 'winjs',
+      platform: 'web',
       nodeModules: ['react-native-winjs']
     }),
     new webpack.DefinePlugin({
-      'process.env': {
+      	'process.env': {
         'NODE_ENV': JSON.stringify(isProd? PROD: DEV),
       }
     }),
-    isProd? new webpack.ProvidePlugin({
+    !isProd? new webpack.ProvidePlugin({
       React: "react"
     }): new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new HtmlPlugin(),
+    new HtmlPlugin({
+        template: path.join(ROOT_PATH, 'node_modules/react-native-winjs/src/winjs_template.html'),
+        filename: 'index.html',
+      }),
   ],
   module: {
     loaders: [{
@@ -64,9 +71,9 @@ module.exports = {
       loader: 'json',
     }, {
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel?stage=1'],
+      loaders: [/*'react-hot', */'babel?stage=1&compact=false'],
       include: [config.paths.src],
-      exclude: [/node_modules/]
+      exclude: ['node_modules','web']
     }, ]
   }
 };

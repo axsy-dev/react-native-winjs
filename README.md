@@ -2,11 +2,11 @@
            
 # React Native WinJS
 
-> A framework for building WinJS apps with a React Native compatible API.
+> A framework for building WinJS apps with a React Native compatible API, based on the hard work already put in by the react-web project.
 
 ## Adding to an existing React Native project
 
-If you already have a React Native project and want to add web support, you need to execute the following commands in your existing project directory:
+If you already have a React Native project and want to add WinJS support, you need to execute the following commands in your existing project directory:
 
 1. Install `npm install react-native-winjs-cli -g`
 2. Execute `react-native-winjs init <ExistedProjectDir>` that install `react-native-winjs` and `devDependencies` to your project and make a `web` directory with `webpack.config.js` file under your project
