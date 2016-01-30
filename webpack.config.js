@@ -23,7 +23,7 @@ var mergeCommon = merge.bind(null, {
       'react-native': 'ReactNativeWinJS',
       'ReactART': 'react-art'
     },
-    extensions: ['', '.js', '.jsx', '.md', '.css', '.png', '.jpg'],
+    extensions: ['', '.js', '.jsx', '.ios.js', '.md', '.css', '.png', '.jpg'],
   },
   module: {
     loaders: [{
