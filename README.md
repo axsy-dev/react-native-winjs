@@ -10,7 +10,7 @@ If you already have a React Native project and want to add WinJS support, you ne
 
 1. Install `npm install react-native-winjs-cli -g`
 2. Execute `react-native-winjs init <ExistedProjectDir>` that install `react-native-winjs` and `devDependencies` to your project and make a `web` directory with `webpack.config.js` file under your project. 
-3. Edit the root js file eg `index.ios.js`, or create `index.web.js` : adding the following to the end would usually get you started
+3. Edit the root js file eg `index.ios.js`, or create `index.web.js` : adding the following to the end would usually get you started, assuming the root component is registered as 'MyApp'
 ```js
 import {Platform} from 'react-native';
 
@@ -18,7 +18,7 @@ if(Platform.OS == 'winjs'){
   var app = document.createElement('div');
   document.body.appendChild(app);
 
-  AppRegistry.runApplication('ServiceTemplate', {
+  AppRegistry.runApplication('MyApp', {
     rootTag: app
   })
 }
