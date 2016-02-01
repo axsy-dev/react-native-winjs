@@ -30,7 +30,7 @@ module.exports = {
       'react-native': 'react-native-winjs',
       'ReactNativeART': 'react-art',
     },
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.ios.js', '.jpg', '.png', '.css', '.md'],
   },
   entry: isProd? [
     config.paths.index

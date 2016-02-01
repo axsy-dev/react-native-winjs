@@ -60,7 +60,7 @@ function run() {
 
 function printUsage() {
   console.log([
-    'Usage: react-web <command>',
+    'Usage: react-native-winjs <command>',
     '',
     'Commands:'
   ].concat(Object.keys(documentedCommands).map(function(name) {
@@ -75,7 +75,7 @@ function printInitWarning() {
   return Promise.resolve().then(function() {
     console.log([
       'Looks like React Web project already exists in the current',
-      'folder. Run this command from a different folder or remove node_modules/react-web'
+      'folder. Run this command from a different folder or remove node_modules/react-native-winjs'
     ].join('\n'));
     process.exit(1);
   });

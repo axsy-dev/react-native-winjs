@@ -31,7 +31,7 @@ function installDev(projectDir, verbose) {
     } else {
       console.log(chalk.white.bold('To run your app on browser:'));
       console.log(chalk.white('   cd ' + projectDir));
-      console.log(chalk.white('   react-web start'));
+      console.log(chalk.white('   react-native-winjs start'));
     }
   });
 }
