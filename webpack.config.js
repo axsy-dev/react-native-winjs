@@ -12,7 +12,8 @@ var DEMO_DIR = 'Examples';
 var config = {
   paths: {
     src: path.join(ROOT_PATH, 'Libraries'),
-    demo: path.join(ROOT_PATH, DEMO_DIR),
+    demodir: path.join(ROOT_PATH, DEMO_DIR),
+    demo: path.join(ROOT_PATH, DEMO_DIR, '/UIExplorer'),
     demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/UIExplorer/UIExplorerApp.web'),
   }
 };
@@ -41,8 +42,7 @@ var mergeCommon = merge.bind(null, {
   },
   plugins: [
     new HasteResolverPlugin({
-      platform: 'winjs',
-      blacklist: ['pages', 'lib'],
+      platform: 'web',
     }),
   ]
 });
@@ -56,11 +56,12 @@ if (NODE_ENV === 'development') {
     devtool: 'source-map',
     entry:
       {
-      'webpack' : [
+      'react-native-winjs': ['react-native'],
+      'demo' : [
         'webpack-dev-server/client?http://' + IP + ':' + PORT,
-        'webpack/hot/only-dev-server'
+        'webpack/hot/only-dev-server',
+        config.paths.demoIndex
         ],
-        demo: config.paths.demoIndex
       },
     output: {
       path: __dirname,
@@ -73,26 +74,32 @@ if (NODE_ENV === 'development') {
           'NODE_ENV': JSON.stringify('development'),
         }
       }),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'react-native-winjs',
+        filename:'react-native-winjs.js',
+      }),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
       new HtmlPlugin({
         template: path.join(ROOT_PATH, 'src/winjs_template.html'),
         filename: 'index.html',
         title: 'demo',
-        chunks: ['react-native-winjs', 'demo']
+        chunks: ['react-native-winjs','demo']
       }),
     ],
     module: {
-      preLoaders: [{
-        test: /\.jsx?$/,
-        loaders: ['eslint'],
-        include: [config.paths.demo, config.paths.src],
-      }],
+//       preLoaders: [{
+//         test: /\.jsx?$/,
+//         loaders: ['eslint'],
+//         include: [config.paths.demo, config.paths.src],
+//         exclude: ['/node_modules/']
+//       }],
       loaders: [{
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel?stage=1'],
         include: [config.paths.demo, config.paths.src],
-        exclude: [/node_modules/]
+        exclude: [/node_modules/, path.join(ROOT_PATH, 'pages')]
       }, ]
     }
   });
@@ -162,7 +169,7 @@ if (NODE_ENV === 'production') {
       loaders: [{
         test: /\.jsx?$/,
         loaders: ['babel?stage=1'],
-        include: [config.paths.demo, config.paths.src],
+        include: [config.paths.demodir, config.paths.src],
       }]
     }
   });

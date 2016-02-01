@@ -105,6 +105,11 @@ You can find something like `@providesModule ReactActivityIndicator` on `react-n
   }
   ```
   
+6. Need fetch?
+```js
+  fetch = require('ReactFetch');
+```
+
 ### React Native compatible
 
 #### Components

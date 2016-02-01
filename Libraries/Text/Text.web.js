@@ -232,7 +232,7 @@ var Text = React.createClass({
             margin: 0,
             padding: 0,
             wordWrap: 'break-word',
-            fontFamily: 'Helvetica Neue, STHeiTi, sans-serif'
+            fontFamily: 'Calibri, Helvetica Neue, STHeiTi, sans-serif'
           },
           ...style,
           ...(numberOfLines && {
