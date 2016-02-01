@@ -20,8 +20,8 @@ function extendCreateElement(React, processor) {
         }
       }
 
-      if (style.flex == '1') {
-        style['display']='flex';
+      if (style.flex === undefined) {
+        style['display']='flex'; // in RN Flexbox is the default
       }
 
       target.style = style;
