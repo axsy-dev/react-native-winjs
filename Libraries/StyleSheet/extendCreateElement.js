@@ -19,6 +19,11 @@ function extendCreateElement(React, processor) {
           target[key] = props[key];
         }
       }
+
+      if (style.flex == '1') {
+        style['display']='flex';
+      }
+
       target.style = style;
       props = target;
     }
