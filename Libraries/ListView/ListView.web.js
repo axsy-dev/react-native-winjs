@@ -7,13 +7,7 @@
 
 import React, { PropTypes } from 'react';
 import ListViewDataSource from 'ReactListViewDataSource';
-// import ReactDOM from 'react-dom';
-// import ScrollView from 'ReactScrollView';
-// import ScrollResponder from 'ReactScrollResponder';
-// import StaticRenderer from 'ReactStaticRenderer';
-// import TimerMixin from 'react-timer-mixin';
-// import assign from 'object-assign';
-// import getLayout from 'ReactGetLayout';
+import WinJSDataSourceAdapter from 'WinJSDataSourceAdapter';
 
 import ReactWinJS from 'react-winjs';
 
@@ -35,23 +29,52 @@ export default class ListView extends React.Component {
   // Constructor
   constructor(props, context) {
     super(props, context);
+    this.winjsbinding = new WinJSDataSourceAdapter.datasource(this);
+  }
+
+  updateDataSource(normalReactDataSource) {
+    if (this.dataSource != normalReactDataSource) {
+      this.dataSource = normalReactDataSource;
+      this.state = {
+        update: 1
+      };
+      this.winjsbinding.invalidateAll();
+      console.log("set for update");
+    }
+  }
+
+  // callbacks
+
+  componentDidMount() {
+    console.log("componentDidMount");
+    var normalReactDataSource = this.props.dataSource;
+    this.updateDataSource(normalReactDataSource);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps");
+    this.updateDataSource(nextProps.dataSource);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    var update = false;
+    if (this.state.update) {
+      update = true;
+      this.state = {
+        update: 0
+      };
+    }
+    console.log("shouldComponentUpdate " + update);
+    return update;
   }
 
   render() {
-    // if (this.winjslistview.props.itemDataSource.count() !== this.props.dataSource.getRowCount()) {
-    // something has changed
-    var normalReactDataSource = this.props.dataSource;
-    var items = [];
-    for (var i = 0; i < normalReactDataSource.getSectionLengths()[0]; i++) {
-      var item = normalReactDataSource.getRowData(0, i); // one section for now
-      items.push(item);
-    }
-    // }
+    console.log("render");
     return (
       <ReactWinJS.ListView
         style={this.props.style}
         className="win-container"
-        itemDataSource={ new WinJS.Binding.List(items).dataSource }
+        itemDataSource={ this.winjsbinding }
         itemTemplate={this.itemRenderer(this.props.renderRow)}
         layout={ { type: WinJS.UI.ListLayout } }
       />

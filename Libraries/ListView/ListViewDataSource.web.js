@@ -228,13 +228,13 @@ class ListViewDataSource {
    * Gets the rowID at index provided if the dataSource arrays were flattened,
    * or null of out of range indexes.
    */
-  getRowIDForFlatIndex(index: number): ?string {
+  getRowIndexForFlatIndex(index: number): ?string {
     var accessIndex = index;
     for (var ii = 0; ii < this.sectionIdentities.length; ii++) {
       if (accessIndex >= this.rowIdentities[ii].length) {
         accessIndex -= this.rowIdentities[ii].length;
       } else {
-        return this.rowIdentities[ii][accessIndex];
+        return accessIndex;
       }
     }
     return null;
@@ -244,13 +244,13 @@ class ListViewDataSource {
    * Gets the sectionID at index provided if the dataSource arrays were flattened,
    * or null for out of range indexes.
    */
-  getSectionIDForFlatIndex(index: number): ?string {
+  getSectionIndexForFlatIndex(index: number): ?string {
     var accessIndex = index;
     for (var ii = 0; ii < this.sectionIdentities.length; ii++) {
       if (accessIndex >= this.rowIdentities[ii].length) {
         accessIndex -= this.rowIdentities[ii].length;
       } else {
-        return this.sectionIdentities[ii];
+        return ii;
       }
     }
     return null;
@@ -382,6 +382,8 @@ function keyedDictionaryFromArray(arr) {
   }
   return result;
 }
+
+// extras
 
 
 module.exports = ListViewDataSource;
