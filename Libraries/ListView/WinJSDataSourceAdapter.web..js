@@ -29,7 +29,7 @@
 
                 var that = this;
 
-                return new Promise(function(resolve, reject) {
+                return new WinJS.Promise(function(resolve, reject) {
                     if (that._listView.props.dataSource) {
                       console.log("sent " + that._listView.props.dataSource.getRowCount() + " rows");
                       resolve(that._listView.props.dataSource.getRowCount());
@@ -86,18 +86,22 @@
                         });
                     }
                     console.log("returned " + results.length + " items");
-                    return Promise.resolve(
-                    {
+                    return new WinJS.Promise(function(resolve, reject) {
+                      resolve({
                         items: results, // The array of items
                         offset: requestIndex - fetchIndex, // The offset into the array for the requested item
                         totalCount: that._listView.props.dataSource.getRowCount()
+                      })
                     });
 
                 } else {
-                  return Promise.resolve( {
-                      items: [],
-                      offset: 0
-                  });
+                    return new WinJS.Promise(function(resolve, reject) {
+                      resolve({
+                        items: [], // The array of items
+                        offset: 0, // The offset into the array for the requested item
+                        totalCount: 0
+                      })
+                    });
                 }
 
             },
