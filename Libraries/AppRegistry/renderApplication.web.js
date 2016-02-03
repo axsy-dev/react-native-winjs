@@ -18,6 +18,7 @@ var AppContainer = React.createClass({
     var RootComponent = this.props.rootComponent;
     var appView =
       <View
+        id="app"
         ref="main"
         className={StyleSheet.rootClassName}
         style={styles.appContainer}>
@@ -55,6 +56,8 @@ var styles = StyleSheet.create({
     top: 0,
     right: 0,
     bottom: 0,
+    height: '100vh',
+    width: '100vw'
   },
 });
 
