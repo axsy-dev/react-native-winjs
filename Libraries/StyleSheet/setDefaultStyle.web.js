@@ -55,7 +55,7 @@ function appendSytle({
 function setDefaultStyle(options) {
   var metaEl = document.querySelector('meta[name="viewport"]');
   if (!metaEl) {
-    return console.warn('Viewport meta not set');
+    console.warn('WARNING: Viewport meta not set, rendering may be affected!');
   }
 
   window.addEventListener('resize', function() {
