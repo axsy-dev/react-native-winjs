@@ -1,0 +1,66 @@
+{
+  "name": "react-native-winjs",
+  "version": "0.0.4",
+  "description": "A framework for building WinJS apps with React",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dorada/react-native-winjs.git"
+  },
+  "main": "./lib/react-native-winjs.js",
+  "keywords": [
+    "react-native",
+    "react-web",
+    "react",
+    "react-component",
+    "react-winjs"
+  ],
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint . --ext .js --ext .jsx",
+    "start": "node local-cli/cli.js start webpack.config.js",
+    "demo": "node local-cli/cli.js bundle webpack.config.js",
+    "prepublish": "babel ./Libraries --out-dir ./lib --stage 1",
+    "postpublish": "rm -rf ./lib"
+  },
+  "devDependencies": {
+    "babel": "5.8.19",
+    "babel-eslint": "4.1.6",
+    "babel-loader": "5.1.3",
+    "eslint": "1.10.3",
+    "eslint-loader": "1.0.0",
+    "eslint-plugin-react": "3.13.1",
+    "file-loader": "0.8.4",
+    "haste-resolver-webpack-plugin": "0.1.3",
+    "jest-cli": "0.8.2",
+    "json-loader": "0.5.2",
+    "react-hot-loader": "1.2.7",
+    "url-loader": "0.5.6",
+    "webpack-html-plugin": "0.1.1",
+    "webpack-merge": "0.1.1"
+  },
+  "peerDependencies": {
+    "react": "~0.14.7",
+    "react-dom": "~0.14.7"
+  },
+  "dependencies": {
+    "babel-core": "6.4.5",
+    "chalk": "1.1.1",
+    "core-js": "1.2.3",
+    "domkit": "0.0.1",
+    "easyfile": "0.1.0",
+    "fbjs": "^0.6.0",
+    "graceful-fs": "4.1.2",
+    "history": "1.12.6",
+    "immutable": "3.7.5",
+    "object-assign": "3.0.0",
+    "promise": "7.0.4",
+    "react-dom": "^0.14.6",
+    "react-timer-mixin": "0.13.2",
+    "rebound": "0.0.13",
+    "tinycolor2": "1.1.2",
+    "webpack": "1.12.10",
+    "webpack-dev-server": "1.14.0",
+    "react-winjs": "git+https://github.com/axsy-dev/react-winjs.git"
+  }
+}

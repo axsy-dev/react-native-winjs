@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>UIExplorer</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/css/ui-light.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/js/base.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/winjs/4.4.0/js/ui.js"></script>
+
+    
+    
+
+    <style>
+        #app {
+            height: 100%;
+        }
+        /*
+         *  For performance reasons, the .win-container styles should be
+         *  specified in CSS.
+        */
+        win-container win-item {
+            height: 100%;
+        }
+        .win-listview {
+            height: 100vh;
+        }
+    </style>
+
+  </head>
+  <body class="win-type-body">
+    
+    <script src="react-native-winjs.js?cc8bc77fe39e7f5af229"></script>
+    
+    <script src="uiexplorer.js?cc8bc77fe39e7f5af229"></script>
+    
+  </body>
+  <script>
+    WinJS.Application.onready = function () {
+      WinJS.UI.processAll();
+  };
+  WinJS.Application.start();
+  </script>
+</html>

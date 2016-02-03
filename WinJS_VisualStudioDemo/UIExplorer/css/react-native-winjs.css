@@ -1,0 +1,15 @@
+﻿/*
+    *  For performance reasons, the .win-container styles should be
+    *  specified in CSS.
+*/
+
+//.win-container .win-item .win-viewport {
+//	height: 100%;
+//}
+
+.win-listview {
+	flex: 1;
+    height: 100%;
+	overflow: auto;
+	max-height: 90vh;
+}
