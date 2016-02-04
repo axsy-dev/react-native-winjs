@@ -41,6 +41,7 @@ var ActivityIndicator = React.createClass({
      */
     size: PropTypes.oneOf([
       'small',
+      'medium',
       'large',
     ]),
   },
@@ -53,64 +54,25 @@ var ActivityIndicator = React.createClass({
     };
   },
 
-  /**
-   * @param  {Number} i
-   * @return {Object}
-   */
-  getAnimationStyle: function(i) {
-    var animation = [animationName, '1.2s', (i * 0.12) + 's', 'infinite', 'ease-in-out'].join(' ');
-    var animationFillMode = 'both';
-
-    return {
-      animation: animation,
-      animationFillMode: animationFillMode,
-    };
-  },
-
-  /**
-   * @param  {Number} i
-   * @return {Object}
-   */
-  getLineStyle: function(i, lines) {
-    return {
-      backgroundColor: this.props.color,
-      position: 'absolute',
-      // FIXME: hacked a fixed value for align
-      top: -3,
-      left: -1,
-      transform: 'rotate(' + ~~(360 / lines * i) + 'deg) translate(0, -' + (this.props.size === 'large' ? 12 : 7) + 'px)',
-    };
-  },
-  /**
-   * @param  {Number} i
-   * @return {Object}
-   */
-  getStyle: function(i, lines) {
-    var sizeLineStyle = (this.props.size === 'large') ? styles.sizeLargeLine : styles.sizeSmallLine;
-    return assign(
-      this.getAnimationStyle(i),
-      this.getLineStyle(i, lines),
-      sizeLineStyle
-    );
-  },
-
   render: function() {
-    var lines = [];
-    var sizeContainerStyle = (this.props.size === 'large') ? styles.sizeLargeContainer : styles.sizeSmallContainer;
 
-    if (this.props.animating) {
-      for (let i = 1; i <= 12; i++) {
-        lines.push(<View key={i} style={this.getStyle(i, 12)} />);
-      }
-    }
+    // size
+    var sizeContainerClass = (this.props.size === 'large') ? "win-ring win-large" : "win-ring win-small";
+
+    // hidden
+    if (this.props.animating === false) {
+      return null;
+    };
 
     return (
-      <View style={[styles.container, sizeContainerStyle, this.props.style]}>
-        <View>
-          {lines}
-        </View>
-      </View>
-    );
+        <progress /*id="progressRing"*/
+                  className={sizeContainerClass}
+                  style={{
+                      ...this.props.style,
+                      color:this.props.color,
+                      }}>
+        </progress>
+   );
   }
 });
 
