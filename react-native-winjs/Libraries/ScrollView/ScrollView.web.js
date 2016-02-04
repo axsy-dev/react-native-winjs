@@ -398,7 +398,7 @@ var styles = StyleSheet.create({
   base: {
     overflow: 'scroll',
     WebkitOverflowScrolling: 'touch',
-    flex: 1,
+    // flex: 1, Remove flex, cause Edge don't recognize it with 'overflow' property
   },
   contentContainer: {
     position: 'absolute',
