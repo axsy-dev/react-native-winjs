@@ -49,6 +49,7 @@ var COMPONENTS = [
 var APIS = [
   // require('./AccessibilityAndroidExample.android'),
   require('./AlertIOSExample'),
+  require('./AlertExample'),
   require('./AnimatedExample'),
   require('./AsyncStorageExample'),
   require('./BorderExample'),

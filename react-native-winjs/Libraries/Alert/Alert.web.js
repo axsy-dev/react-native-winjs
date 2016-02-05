@@ -37,7 +37,21 @@ var DEFAULT_BUTTON = {
  * ```
  */
 
+function isCoreWindowAvailable() : bool {
+
+  try {
+    Windows.UI.ViewManagement.InputPane.getForCurrentView();
+    return true;
+  } catch (e) { }
+
+  return false;
+
+}
+
 class AlertIOS {
+
+
+
   static alert(
     title: ?string,
     message?: ?string,
@@ -61,7 +75,19 @@ class AlertIOS {
       buttonsSpec.push(btnDef);
     });
 
-    alert(title);
+    if (isCoreWindowAvailable()) {
+      var windowsAlert = new Windows.UI.Popups.MessageDialog(message,title);
+      buttons.forEach((btn, index) => {
+        windowsAlert.commands.append(new Windows.UI.Popups.UICommand(btn.text, btn.onPress));
+      });
+
+      windowsAlert.defaultCommandIndex = 0;
+      windowsAlert.cancelCommandIndex = 1;
+      windowsAlert.showAsync();
+    } else {
+      alert(title);
+    }
+
   }
 
   static prompt(
