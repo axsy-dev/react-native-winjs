@@ -35,6 +35,7 @@ var documentedCommands = {
 
 var undocumentedCommands = {
   'init': [printInitWarning, ''],
+  'reinit': [reinit, 'reinitialise, experimental']
 };
 
 var commands = Object.assign({}, documentedCommands, undocumentedCommands);
@@ -74,8 +75,8 @@ function printUsage() {
 function printInitWarning() {
   return Promise.resolve().then(function() {
     console.log([
-      'Looks like React Web project already exists in the current',
-      'folder. Run this command from a different folder or remove node_modules/react-native-winjs'
+      'Looks like React Native WinJS has already been added in the current',
+      'folder.\nRun this command from a different folder or remove node_modules/react-native-winjs'
     ].join('\n'));
     process.exit(1);
   });
@@ -89,7 +90,7 @@ function printInitWarning() {
  *                 generator.
  */
 function init(projectDir, argsOrName) {
-  console.log('Setting up new React Web app in ' + projectDir);
+  console.log('Adding React Web for WinJS support to ' + defaultConfig.getRoot());
 
   // argv is for instance
   // ['node', 'react-web', 'init', 'AwesomeApp', '--verbose']
@@ -100,6 +101,13 @@ function init(projectDir, argsOrName) {
 
   generateWeb(projectDir, defaultConfig);
 
+}
+
+function reinit() {
+      return new Promise(() => {
+    console.log('Reinitialising (experimental)');
+    init(__dirname, '');
+  });
 }
 
 if (require.main === module) {

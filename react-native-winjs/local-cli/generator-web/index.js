@@ -9,6 +9,7 @@ var chalk = require('chalk');
 var spawn = require('child_process').spawn;
 var easyfile = require('easyfile');
 var packageJson = require('../../package.json');
+var fs = require('fs')
 
 function installDev(projectDir, verbose) {
   var proc = spawn('npm', [
@@ -46,6 +47,27 @@ module.exports = function(projectDir, config) {
     force: true,
     backup: true,
   });
+
+  /* Add a default index.web.js if none exists */
+  
+  var indexName = 'index.web.js'
+  
+  if (!fs.existsSync(root + '/' + indexName))
+  {
+    var srcIndex = path.join(__dirname, 'templates/index.web.js');
+    var destIndex = path.join(root, indexName);
+    
+        var data = fs.readFileSync(srcIndex, 'utf8');
+        var result = data.replace(/XXReactNativeWinJsComponentXX/g, path.basename(root));
+        
+        fs.writeFileSync(destIndex, result, 'utf8');
+
+      console.log(chalk.bold('Added default React Native for WinJS template ' + indexName));
+  }
+  else
+  {
+      console.log(chalk.white('Kept existing React Native for WinJS template' + indexName));
+  }
 
   process.chdir(root);
   installDev(projectDir);
