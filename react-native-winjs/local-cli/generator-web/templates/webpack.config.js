@@ -17,7 +17,7 @@ var config = {
   paths: {
   	libs: path.join(ROOT_PATH, 'node_modules/react-native-winjs/lib'),
     src: path.join(ROOT_PATH, '.'),
-    index: path.join(ROOT_PATH, 'index.ios'),
+    index: path.join(ROOT_PATH, 'index.web'),
   },
 };
 
