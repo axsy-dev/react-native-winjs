@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import './injectResponderEventPlugin.web';
+import './injectResponderEventPlugin.winjs';
 import TouchHistoryMath from './TouchHistoryMath';
 
 var currentCentroidXOfTouchesChangedAfter =

@@ -8,8 +8,8 @@
 
 import React from 'react';
 import View from 'ReactView';
-import TabBarItem from './TabBarItem.web';
-import TabBarContents from './TabBarContents.web';
+import TabBarItem from './TabBarItem.winjs';
+import TabBarContents from './TabBarContents.winjs';
 import assign from 'object-assign';
 
 var TabBar = React.createClass({

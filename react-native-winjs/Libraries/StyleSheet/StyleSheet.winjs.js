@@ -6,12 +6,12 @@
  */
 'use strict';
 
-import extendProperties from './extendProperties.web';
+import extendProperties from './extendProperties.winjs';
 import reference from './reference';
-import setDefaultStyle from './setDefaultStyle.web';
+import setDefaultStyle from './setDefaultStyle.winjs';
 // Make React support array of style object like React Native
 import extendCreateElement from './extendCreateElement';
-import flattenStyle from './flattenStyle.web';
+import flattenStyle from './flattenStyle.winjs';
 
 var inited = false;
 
