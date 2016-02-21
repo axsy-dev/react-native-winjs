@@ -56,6 +56,11 @@ export default class ListView extends React.Component {
     this.updateDataSource(nextProps.dataSource);
   }
 
+  componentWillUpdate() {
+    this.refs.listView && this.refs.listView.winControl && this.refs.listView.winControl.selection.clear();
+  }
+
+
   shouldComponentUpdate(nextProps, nextState) {
     var update = false;
     if (this.state.update) {
@@ -68,15 +73,22 @@ export default class ListView extends React.Component {
     return update;
   }
 
+  onItemInvoked(event) {
+    const id = event.detail.itemIndex;
+
+    setImmediate(() => {
+      this.props.onItemSelect && this.props.onItemSelect(id);
+    });
+  }
+
   render() {
-    console.log("render");
     return (
       <ReactWinJS.ListView
-        style={this.props.style}
-        className="win-container"
+        ref="listView"
         itemDataSource={ this.winjsbinding }
         itemTemplate={this.itemRenderer(this.props.renderRow)}
-        layout={ { type: WinJS.UI.ListLayout } }
+        onItemInvoked={this.onItemInvoked.bind(this)}
+        {...this.props}
       />
     );
   }
