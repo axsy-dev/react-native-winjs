@@ -330,56 +330,130 @@ if (!self.fetch) {
         request = new Request(input, init)
       }
 
-      var xhr = new XMLHttpRequest()
+      if (typeof PinnedCertificates !== 'undefined' && typeof PinnedCertificates.CertificatePinner.http !== 'undefined') {
+        let http = Windows.Web.Http;
+        let httpClient = PinnedCertificates.CertificatePinner.http;
+        var uri = new Windows.Foundation.Uri( request.url );
+        let methodMap = {
+          'DELETE': Windows.Web.Http.HttpMethod.delete,
+          'GET': Windows.Web.Http.HttpMethod.get,
+          'HEAD': Windows.Web.Http.HttpMethod.head,
+          'OPTIONS': Windows.Web.Http.HttpMethod.options,
+          'POST': Windows.Web.Http.HttpMethod.post,
+          'PUT': Windows.Web.Http.HttpMethod.put
+        };
 
-      function responseURL() {
-        if ('responseURL' in xhr) {
-          return xhr.responseURL
+        let windowsRequest = new http.HttpRequestMessage
+        (
+          methodMap[request.method],
+          uri
+        );
+        let body = request._bodyInit;
+        if (typeof body !== 'undefined' && body)
+        {
+          if (typeof body === 'string') {
+            windowsRequest.content = new http.HttpStringContent(body);
+          } /*else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+            // todo
+          } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+            // todo
+          } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+            // todo
+          } */ else {
+            throw new Error('unsupported content type')
+          }
+
         }
+        // todo other aspects of the request - headers, etc
+        httpClient.sendRequestAsync(windowsRequest).then(
+          response => {
+            try {
+              let h = new Headers();
+              let winh = response.headers.getView();
+              Object.keys(winh).forEach(function(key) {
+                h.append(key, winh[key]);
+              });
+              var options = {
+                status: response.statusCode,
+                statusText: response.reasonPhrase,
+                headers: h
+              };
+              response.content.readAsStringAsync().then(
+                s =>
+                {
+                  try {
+                    resolve(new Response(s, options));
+                  } catch (e) {
+                    reject(e);
+                  } finally {
+                  }
+                },
+                e =>
+                {
+                  reject(e);
+                }
+              );
+            } catch (e) {
+              reject(e);
+            } finally {
 
-        // Avoid security warnings on getResponseHeader when not allowed by CORS
-        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-          return xhr.getResponseHeader('X-Request-URL')
-        }
-
-        return;
+            }
+          },
+          error => { reject(error);}
+        );
       }
+      else {
+        var xhr = new XMLHttpRequest()
 
-      xhr.onload = function() {
-        var status = (xhr.status === 1223) ? 204 : xhr.status
-        if (status < 100 || status > 599) {
+        function responseURL() {
+          if ('responseURL' in xhr) {
+            return xhr.responseURL
+          }
+
+          // Avoid security warnings on getResponseHeader when not allowed by CORS
+          if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+            return xhr.getResponseHeader('X-Request-URL')
+          }
+
+          return;
+        }
+
+        xhr.onload = function() {
+          var status = (xhr.status === 1223) ? 204 : xhr.status
+          if (status < 100 || status > 599) {
+            reject(new TypeError('Network request failed'))
+            return
+          }
+          var options = {
+            status: status,
+            statusText: xhr.statusText,
+            headers: headers(xhr),
+            url: responseURL()
+          }
+          var body = 'response' in xhr ? xhr.response : xhr.responseText;
+          resolve(new Response(body, options))
+        }
+
+        xhr.onerror = function() {
           reject(new TypeError('Network request failed'))
-          return
         }
-        var options = {
-          status: status,
-          statusText: xhr.statusText,
-          headers: headers(xhr),
-          url: responseURL()
+
+        xhr.open(request.method, request.url, true)
+
+        if (request.credentials === 'include') {
+          xhr.withCredentials = true
         }
-        var body = 'response' in xhr ? xhr.response : xhr.responseText;
-        resolve(new Response(body, options))
+
+        if ('responseType' in xhr && support.blob) {
+          xhr.responseType = 'blob'
+        }
+
+        request.headers.forEach(function(value, name) {
+          xhr.setRequestHeader(name, value)
+        })
+
+        xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
       }
-
-      xhr.onerror = function() {
-        reject(new TypeError('Network request failed'))
-      }
-
-      xhr.open(request.method, request.url, true)
-
-      if (request.credentials === 'include') {
-        xhr.withCredentials = true
-      }
-
-      if ('responseType' in xhr && support.blob) {
-        xhr.responseType = 'blob'
-      }
-
-      request.headers.forEach(function(value, name) {
-        xhr.setRequestHeader(name, value)
-      })
-
-      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
     })
   }
 
