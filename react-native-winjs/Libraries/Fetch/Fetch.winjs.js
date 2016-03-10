@@ -348,6 +348,7 @@ if (!self.fetch) {
           methodMap[request.method],
           uri
         );
+        
         let body = request._bodyInit;
         if (typeof body !== 'undefined' && body)
         {
@@ -364,7 +365,7 @@ if (!self.fetch) {
           }
 
         }
-        // todo other aspects of the request - headers, etc
+        // todo other aspects of the request - headers, credentials, mode
         httpClient.sendRequestAsync(windowsRequest).then(
           response => {
             try {
