@@ -17,6 +17,12 @@ var LayoutMixin = {
 
   componentDidMount: function() {
     this.layoutHandle();
+
+    window && window.addEventListener('resize', this.layoutHandle);
+  },
+
+  componentWillUnmount: function() {
+    window && window.removeEventListener('resize', this.layoutHandle);
   },
 
   componentDidUpdate: function() {
