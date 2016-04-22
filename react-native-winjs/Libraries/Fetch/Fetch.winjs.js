@@ -464,4 +464,4 @@ if (!self.fetch) {
   self.fetch.polyfill = true
 }
 
-module.exports = { fetch: self.fetch, Headers: self.Headers, Request: self.Request, Response: self.Response }
+module.exports = self;
