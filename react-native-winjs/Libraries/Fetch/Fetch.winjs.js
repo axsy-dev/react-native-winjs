@@ -348,7 +348,10 @@ if (!self.fetch) {
           methodMap[request.method],
           uri
         );
-        
+        request.headers.forEach(function(value, name) {
+          windowsRequest.headers.insert(name, value);
+        })
+
         let body = request._bodyInit;
         if (typeof body !== 'undefined' && body)
         {
@@ -461,4 +464,4 @@ if (!self.fetch) {
   self.fetch.polyfill = true
 }
 
-module.exports = self.fetch;
+module.exports = { fetch: self.fetch, Headers: self.Headers, Request: self.Request, Response: self.Response }
