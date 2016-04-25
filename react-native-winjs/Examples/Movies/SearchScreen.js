@@ -27,7 +27,7 @@ var {
 } = React;
 var TimerMixin = require('react-timer-mixin');
 
-var fetch = Platform.OS === 'winjs'? require('ReactJsonp'): require('ReactFetch');
+var fetch = Platform.OS === 'winjs'? require('ReactJsonp'): require('ReactFetch').fetch;
 
 var invariant = require('fbjs/lib/invariant');
 var dismissKeyboard = require('ReactDismissKeyboard');

@@ -1,5 +1,5 @@
 # WARNING: Under Construction
-           
+
 # React Native WinJS
 
 > A framework for building WinJS apps with a React Native compatible API, based on the hard work already put in by the react-web project.
@@ -9,7 +9,7 @@
 If you already have a React Native project and want to add WinJS support, you need to execute the following commands in your existing project directory:
 
 1. Install `npm install react-native-winjs-cli -g`
-2. Execute `react-native-winjs init <ExistedProjectDir>` that install `react-native-winjs` and `devDependencies` to your project and make a `web` directory with `webpack.config.js` file under your project. 
+2. Execute `react-native-winjs init <ExistedProjectDir>` that install `react-native-winjs` and `devDependencies` to your project and make a `web` directory with `webpack.config.js` file under your project.
 3. Edit the root js file eg `index.ios.js`, or create `index.web.js` : adding the following to the end would usually get you started, assuming the root component is registered as 'MyApp'
 ```js
 import {Platform} from 'react-native';
@@ -97,7 +97,7 @@ You can find something like `@providesModule ReactActivityIndicator` on `react-n
 
 3. Should care about fetch domain on web platform
   ```js
-  var fetch = Platform.OS === 'winjs'? require('ReactJsonp'): require('ReactFetch');
+  var fetch = Platform.OS === 'winjs'? require('ReactJsonp'): require('ReactFetch').fetch;
   ```
 
 4. Component without setNativeProps method on web platform
@@ -117,10 +117,10 @@ You can find something like `@providesModule ReactActivityIndicator` on `react-n
     LayoutAnimation.configureNext(...)
   }
   ```
-  
+
 6. Need fetch?
 ```js
-  fetch = require('ReactFetch');
+  fetch = require('ReactFetch').fetch;
 ```
 
 ### React Native compatible
@@ -135,7 +135,7 @@ You can find something like `@providesModule ReactActivityIndicator` on `react-n
 * Navigator
 * PickerIOS
 * ProgressViewIOS
-* ScrollView 
+* ScrollView
 * SegmentedControlIOS
 * SliderIOS
 * Switch

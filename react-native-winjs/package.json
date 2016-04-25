@@ -1,6 +1,6 @@
 {
   "name": "react-native-winjs",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A framework for building WinJS apps with React",
   "license": "BSD-3-Clause",
   "repository": {
