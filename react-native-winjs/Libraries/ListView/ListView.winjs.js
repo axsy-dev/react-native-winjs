@@ -26,18 +26,23 @@ export default class ListView extends React.Component {
     //
   }
 
+
   // Constructor
   constructor(props, context) {
     super(props, context);
     this.winjsbinding = new WinJSDataSourceAdapter.datasource(this);
+    this.state = {update: 1};
   }
 
   updateDataSource(normalReactDataSource) {
     if (this.dataSource != normalReactDataSource) {
       this.dataSource = normalReactDataSource;
-      this.state = {
+
+      /*this.setState ( {
         update: 1
-      };
+      });
+      */
+
       this.winjsbinding.invalidateAll();
       console.log("set for update");
     }
@@ -65,9 +70,9 @@ export default class ListView extends React.Component {
     var update = false;
     if (this.state.update) {
       update = true;
-      this.state = {
+      this.setState ( {
         update: 0
-      };
+      });
     }
     console.log("shouldComponentUpdate " + update);
     return update;
