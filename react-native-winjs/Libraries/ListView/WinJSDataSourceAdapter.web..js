@@ -30,9 +30,9 @@
                 var that = this;
 
                 return new WinJS.Promise(function(resolve, reject) {
-                    if (that._listView.props.dataSource) {
-                      console.log("sent " + that._listView.props.dataSource.getRowCount() + " rows");
-                      resolve(that._listView.props.dataSource.getRowCount());
+                    if (that._listView.dataSource) {
+                      console.log("sent " + that._listView.dataSource.getRowCount() + " rows");
+                      resolve(that._listView.dataSource.getRowCount());
                     } else {
                       console.log("no datasource (yet!)");
                       resolve(0);
@@ -73,13 +73,13 @@
                     fetchIndex = requestIndex - countBefore;
                 }
 
-                if (that._listView.props.dataSource) {
+                if (that._listView.dataSource) {
                     var results = [], count;
 
-                    for (var i = 0; i < fetchSize && (fetchIndex + i) < that._listView.props.dataSource.getRowCount() ; i++) {
-                        var rowID = that._listView.props.dataSource.getRowIndexForFlatIndex(fetchIndex + i);
-                        var sectionID = that._listView.props.dataSource.getSectionIndexForFlatIndex(fetchIndex + i);
-                        var dataItem = that._listView.props.dataSource.getRowData(sectionID,rowID);
+                    for (var i = 0; i < fetchSize && (fetchIndex + i) < that._listView.dataSource.getRowCount() ; i++) {
+                        var rowID = that._listView.dataSource.getRowIndexForFlatIndex(fetchIndex + i);
+                        var sectionID = that._listView.dataSource.getSectionIndexForFlatIndex(fetchIndex + i);
+                        var dataItem = that._listView.dataSource.getRowData(sectionID,rowID);
                         results.push({
                             key: (fetchIndex + i).toString(),
                             data: dataItem
@@ -90,7 +90,7 @@
                       resolve({
                         items: results, // The array of items
                         offset: requestIndex - fetchIndex, // The offset into the array for the requested item
-                        totalCount: that._listView.props.dataSource.getRowCount()
+                        totalCount: that._listView.dataSource.getRowCount()
                       })
                     });
 

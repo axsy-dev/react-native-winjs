@@ -4,6 +4,26 @@
  * @providesModule ReactListView
  */
 'use strict';
+/*
+import React, { PropTypes } from 'react';
+import ScrollView from 'ReactScrollView';
+
+export default class ListView extends React.Component {
+
+  static propTypes = {
+    children: PropTypes.any,
+    style: ScrollView.propTypes.style
+  };
+
+  static defaultProps = {
+    style: {}
+  };
+
+  render() {
+    return <ScrollView {...this.props} />
+  }
+}
+*/
 
 import React, { PropTypes } from 'react';
 import ListViewDataSource from 'ReactListViewDataSource';
@@ -35,16 +55,15 @@ export default class ListView extends React.Component {
   }
 
   updateDataSource(normalReactDataSource) {
-    if (this.dataSource != normalReactDataSource) {
+    if (this.dataSource !== normalReactDataSource) {
+
       this.dataSource = normalReactDataSource;
+      //this.setState ( {
+      //  update: 1
+      //});
 
-      /*this.setState ( {
-        update: 1
-      });
-      */
+      setImmediate( () => {this.winjsbinding.invalidateAll();} );
 
-      this.winjsbinding.invalidateAll();
-      console.log("set for update");
     }
   }
 
