@@ -31,7 +31,6 @@
 
                 return new WinJS.Promise(function(resolve, reject) {
                     if (that._listView.dataSource) {
-                      console.log("sent " + that._listView.dataSource.getRowCount() + " rows");
                       resolve(that._listView.dataSource.getRowCount());
                     } else {
                       console.log("no datasource (yet!)");
@@ -51,7 +50,6 @@
             //   offset: The offset into the array for the requested item
             //   totalCount: (optional) update the value of the count
             itemsFromIndex: function (requestIndex, countBefore, countAfter) {
-                console.log("data request " + requestIndex);
                 var that = this;
                 if (requestIndex >= that._maxCount) {
                     return WinJS.Promise.wrapError(new WinJS.ErrorFromName(WinJS.UI.FetchError.doesNotExist));
@@ -85,7 +83,6 @@
                             data: dataItem
                         });
                     }
-                    console.log("returned " + results.length + " items");
                     return new WinJS.Promise(function(resolve, reject) {
                       resolve({
                         items: results, // The array of items

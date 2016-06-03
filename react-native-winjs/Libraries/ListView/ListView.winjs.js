@@ -4,26 +4,7 @@
  * @providesModule ReactListView
  */
 'use strict';
-/*
-import React, { PropTypes } from 'react';
-import ScrollView from 'ReactScrollView';
 
-export default class ListView extends React.Component {
-
-  static propTypes = {
-    children: PropTypes.any,
-    style: ScrollView.propTypes.style
-  };
-
-  static defaultProps = {
-    style: {}
-  };
-
-  render() {
-    return <ScrollView {...this.props} />
-  }
-}
-*/
 
 import React, { PropTypes } from 'react';
 import ListViewDataSource from 'ReactListViewDataSource';
@@ -70,13 +51,11 @@ export default class ListView extends React.Component {
   // callbacks
 
   componentDidMount() {
-    console.log("componentDidMount");
     var normalReactDataSource = this.props.dataSource;
     this.updateDataSource(normalReactDataSource);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("componentWillReceiveProps");
     this.updateDataSource(nextProps.dataSource);
   }
 
@@ -93,7 +72,6 @@ export default class ListView extends React.Component {
         update: 0
       });
     }
-    console.log("shouldComponentUpdate " + update);
     return update;
   }
 
