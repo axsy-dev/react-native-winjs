@@ -31,32 +31,59 @@ export default class ListView extends React.Component {
   // Constructor
   constructor(props, context) {
     super(props, context);
-    this.winjsbinding = new WinJSDataSourceAdapter.datasource(this);
-    this.state = {update: 1};
+    this.winjsbinding = new WinJS.Binding.List([]);
   }
 
-  updateDataSource(normalReactDataSource) {
-    if (this.dataSource !== normalReactDataSource) {
-
-      this.dataSource = normalReactDataSource;
-      //this.setState ( {
-      //  update: 1
-      //});
-
-      setImmediate( () => {this.winjsbinding.invalidateAll();} );
-
+  setDataSource(dataSource) {
+    let newData = [];
+    for (let i = 0; i < dataSource.getRowCount(); i++)
+    {
+      let rowID = dataSource.getRowIndexForFlatIndex(i);
+      let sectionID = dataSource.getSectionIndexForFlatIndex(i);
+      let dataItem = dataSource.getRowData(sectionID,rowID);
+      newData.push(dataItem);
     }
+
+    this.winjsbinding.push(...newData);
+  }
+
+  updateDataSource(dataSource) {
+    console.log(`updating data source ${dataSource.getRowCount()} ${this.winjsbinding.length}`);
+    let dataItems = [];
+    for (let i = 0; i < dataSource.getRowCount(); i++)
+    {
+      let rowID = dataSource.getRowIndexForFlatIndex(i);
+      let sectionID = dataSource.getSectionIndexForFlatIndex(i);
+
+      if (dataSource.rowShouldUpdate(sectionID, rowID))
+      {
+        /// too many row should update - needs checking
+        let dataItem = dataSource.getRowData(sectionID,rowID);
+        if ( i < this.winjsbinding.length )
+        {
+          console.log(`row should update ${i}`);
+          this.winjsbinding.setAt(i, dataItem);
+        }
+        else  {
+          dataItems.push(dataItem);
+        }
+      }
+    }
+    this.winjsbinding.push(...dataItems);
+    this.winjsbinding.splice(dataSource.getRowCount(), this.winjsbinding.length - dataSource.getRowCount());
   }
 
   // callbacks
 
   componentDidMount() {
-    var normalReactDataSource = this.props.dataSource;
-    this.updateDataSource(normalReactDataSource);
+    this.setDataSource(this.props.dataSource);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateDataSource(nextProps.dataSource);
+    if (this.props.dataSource !== nextProps.dataSource && nextProps.dataSource)
+    {
+      this.updateDataSource(nextProps.dataSource);
+    }
   }
 
   componentWillUpdate() {
@@ -65,14 +92,7 @@ export default class ListView extends React.Component {
 
 
   shouldComponentUpdate(nextProps, nextState) {
-    var update = false;
-    if (this.state.update) {
-      update = true;
-      this.setState ( {
-        update: 0
-      });
-    }
-    return update;
+    return false;
   }
 
   onItemInvoked(event) {
@@ -87,7 +107,7 @@ export default class ListView extends React.Component {
     return (
       <ReactWinJS.ListView
         ref="listView"
-        itemDataSource={ this.winjsbinding }
+        itemDataSource={ this.winjsbinding.dataSource }
         itemTemplate={this.itemRenderer(this.props.renderRow)}
         onItemInvoked={this.onItemInvoked.bind(this)}
         {...this.props}
