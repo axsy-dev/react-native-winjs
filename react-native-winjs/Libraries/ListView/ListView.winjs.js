@@ -21,8 +21,8 @@ export default class ListView extends React.Component {
 
   // winJS mappings
   itemRenderer( renderRow ) {
-    return ReactWinJS.reactRenderer(function( item ) {
-      return renderRow(item.data);
+    return ReactWinJS.reactRenderer(function( item) {
+      return renderRow(item.data.dataItem, item.data.sectionID, item.data.rowID);
     });
     //
   }
@@ -34,43 +34,54 @@ export default class ListView extends React.Component {
     this.winjsbinding = new WinJS.Binding.List([]);
   }
 
+  _getDataItem(dataSource, sectionIndex, rowIndex) {
+    const dataItem = dataSource.getRowData(sectionIndex,rowIndex);
+    const sectionID = dataSource.sectionIdentities[sectionIndex];
+    const rowID = dataSource.rowIdentities[sectionIndex][rowIndex];
+    return {dataItem, sectionID, rowID}
+  }
+
   setDataSource(dataSource) {
     let newData = [];
-    for (let i = 0; i < dataSource.getRowCount(); i++)
+    for (var i = 0; i < dataSource.getRowCount(); i++)
     {
-      let rowID = dataSource.getRowIndexForFlatIndex(i);
-      let sectionID = dataSource.getSectionIndexForFlatIndex(i);
-      let dataItem = dataSource.getRowData(sectionID,rowID);
-      newData.push(dataItem);
+      let rowIndex = dataSource.getRowIndexForFlatIndex(i);
+      let sectionIndex = dataSource.getSectionIndexForFlatIndex(i);
+      newData.push(this._getDataItem(dataSource, sectionIndex, rowIndex));
     }
 
     this.winjsbinding.push(...newData);
   }
 
-  updateDataSource(dataSource) {
-    console.log(`updating data source ${dataSource.getRowCount()} ${this.winjsbinding.length}`);
-    let dataItems = [];
-    for (let i = 0; i < dataSource.getRowCount(); i++)
-    {
-      let rowID = dataSource.getRowIndexForFlatIndex(i);
-      let sectionID = dataSource.getSectionIndexForFlatIndex(i);
+  updateDataSource(oldDataSource, newDataSource) {
+      const newRowCount = newDataSource.getRowCount();
+      const oldRowCount = oldDataSource.getRowCount();
+      try {
+          let dataItems = [];
+          for (var i = 0; i < newRowCount; i++) {
+              const newRowIndex = newDataSource.getRowIndexForFlatIndex(i);
+              const newSectionIndex = newDataSource.getSectionIndexForFlatIndex(i);
 
-      if (dataSource.rowShouldUpdate(sectionID, rowID))
-      {
-        /// too many row should update - needs checking
-        let dataItem = dataSource.getRowData(sectionID,rowID);
-        if ( i < this.winjsbinding.length )
-        {
-          console.log(`row should update ${i}`);
-          this.winjsbinding.setAt(i, dataItem);
-        }
-        else  {
-          dataItems.push(dataItem);
-        }
+              const newDataItem = this._getDataItem(newDataSource, newSectionIndex,newRowIndex);
+              if ( i < oldRowCount ) {
+                  const oldRowIndex = oldDataSource.getRowIndexForFlatIndex(i);
+                  const oldSectionIndex = oldDataSource.getSectionIndexForFlatIndex(i);
+                  const oldDataItem = this._getDataItem(oldDataSource, oldSectionIndex ,oldRowIndex);
+
+                  if (newDataSource._rowHasChanged(newDataItem, oldDataItem)) {
+                      this.winjsbinding.setAt(i, newDataItem);                      
+                  }
+              }
+              else {
+                  dataItems.push(newDataItem);
+              }
+          }
+          this.winjsbinding.push(...dataItems);
+          this.winjsbinding.splice(newDataSource.getRowCount(), this.winjsbinding.length - newDataSource.getRowCount());
+      } catch (e) {
+          console.log(e);
       }
-    }
-    this.winjsbinding.push(...dataItems);
-    this.winjsbinding.splice(dataSource.getRowCount(), this.winjsbinding.length - dataSource.getRowCount());
+
   }
 
   // callbacks
@@ -82,7 +93,7 @@ export default class ListView extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.dataSource !== nextProps.dataSource && nextProps.dataSource)
     {
-      this.updateDataSource(nextProps.dataSource);
+      this.updateDataSource(this.props.dataSource, nextProps.dataSource);
     }
   }
 
